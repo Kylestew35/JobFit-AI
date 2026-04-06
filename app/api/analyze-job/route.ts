@@ -55,14 +55,16 @@ ${jobDescription}
       temperature: 0.2,
     });
 
-    // ⭐ FIX: Safely read parsed OR content
-    const msg = completion.choices[0].message;
+    // ⭐ FIX: Safely read parsed OR content without TS errors
+    const msg = completion.choices[0].message as any;
 
-    const parsed =
-      msg.parsed ||
-      (typeof msg.content === "string" ? JSON.parse(msg.content) : null);
+    let parsed;
 
-    if (!parsed) {
+    if (msg.parsed) {
+      parsed = msg.parsed;
+    } else if (typeof msg.content === "string") {
+      parsed = JSON.parse(msg.content);
+    } else {
       throw new Error("Could not parse JSON from model.");
     }
 
