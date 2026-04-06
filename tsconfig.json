@@ -28,7 +28,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
-    "**/*.mts"
+    "**/*.mts",
+    "types/**/*.d.ts"     // ⭐ REQUIRED FOR VERCEL BUILD
   ],
   "exclude": ["node_modules"]
 }
